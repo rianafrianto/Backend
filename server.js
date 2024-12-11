@@ -1,5 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
 const itemRoutes = require('./routes/itemRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
@@ -10,7 +12,8 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 
 // Routes
 app.use('/api/items', itemRoutes);
