@@ -33,18 +33,20 @@ const getItemById = async (req, res) => {
 };
 
 const createItem = async (req, res) => {
-    const { name, description  } = req.body;
+    const { name, description, price, category } = req.body;
 
     try {
         // Validasi
-        if (!name || !description ) {
-            return res.status(400).json({ error: 'Name and description are required' });
+        if (!name || !description || !price || !category) {
+            return res.status(400).json({ error: 'Name, description, price and category are required' });
         }
 
         // Create Table
         const newItem = await Item.create({
             name,
             description,
+            price,
+            category
         });
 
         res.status(201).json({
@@ -60,7 +62,7 @@ const createItem = async (req, res) => {
 
 const updateItem = async (req, res) => {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const { name, description, price, category } = req.body;
 
     try {
         const item = await Item.findByPk(id, {
@@ -75,6 +77,8 @@ const updateItem = async (req, res) => {
 
         item.name = name || item.name;
         item.description = description || item.description;
+        item.price = price || item.price;
+        item.category = category || item.category;
 
         await item.save();
 
@@ -105,6 +109,7 @@ const softDeleteItem = async (req, res) => {
         }
 
         item.deleted_at = moment().format('YYYY-MM-DD HH:mm:ss');
+        // console.log(item)
         await item.destroy();
 
         res.status(200).json({ 

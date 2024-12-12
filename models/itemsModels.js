@@ -9,7 +9,15 @@ const Item = sequelize.define('Item', {
   description: {
     type: DataTypes.TEXT,
     allowNull: false,
-  }
+  },
+  price: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 }, {
   timestamps: true,  // Secara otomatis menambahkan createdAt dan updatedAt
   paranoid: true,    // Mengaktifkan soft delete dan menambahkan deletedAt
