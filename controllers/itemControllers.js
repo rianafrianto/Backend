@@ -107,7 +107,6 @@ const softDeleteItem = async (req, res) => {
         }
 
         item.deleted_at = moment().format('YYYY-MM-DD HH:mm:ss');
-        // console.log(item)
         await item.destroy();
 
         res.status(200).json({ 
