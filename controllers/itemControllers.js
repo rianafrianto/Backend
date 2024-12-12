@@ -33,19 +33,18 @@ const getItemById = async (req, res) => {
 };
 
 const createItem = async (req, res) => {
-    const { name, description, price } = req.body;
+    const { name, description  } = req.body;
 
     try {
         // Validasi
-        if (!name || !description || !price) {
-            return res.status(400).json({ error: 'Name, description, and price are required' });
+        if (!name || !description ) {
+            return res.status(400).json({ error: 'Name and description are required' });
         }
 
         // Create Table
         const newItem = await Item.create({
             name,
             description,
-            price,
         });
 
         res.status(201).json({
@@ -61,7 +60,7 @@ const createItem = async (req, res) => {
 
 const updateItem = async (req, res) => {
     const { id } = req.params;
-    const { name, description, price } = req.body;
+    const { name, description } = req.body;
 
     try {
         const item = await Item.findByPk(id, {
@@ -76,7 +75,6 @@ const updateItem = async (req, res) => {
 
         item.name = name || item.name;
         item.description = description || item.description;
-        item.price = price || item.price;
 
         await item.save();
 
