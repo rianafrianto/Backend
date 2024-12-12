@@ -11,7 +11,7 @@ const Item = sequelize.define('Item', {
     allowNull: false,
   },
   price: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.DECIMAL(10, 0),
     allowNull: false,
   },
   category: {
